@@ -1,0 +1,6 @@
+config.ini
+/venv/
+/.idea/
+/.git/
+__pycache__/
+data/manga-ocr-base/pytorch_model.bin

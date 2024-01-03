@@ -1,0 +1,5 @@
+Pyside6
+Pillow
+pywin32
+pytesseract
+manga-ocr
