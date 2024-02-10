@@ -854,11 +854,11 @@ class BrowserWindow(QMainWindow):
 
         for screen in QApplication.screens():
             # sc = QScreen.availableGeometry(screen)
-            sc = QScreen.geometry(screen)
-            sx = sc.x()
-            sy = sc.y()
-            sw = sc.width()
-            sh = sc.height()
+            scn = QScreen.geometry(screen)
+            sx = scn.x()
+            sy = scn.y()
+            sw = scn.width()
+            sh = scn.height()
             sc = QScreen.devicePixelRatio(screen)
 
             self.available_screens.append((sx, sy, sw, sh, sc))
@@ -1207,7 +1207,7 @@ class BrowserWindow(QMainWindow):
 
     def adjust_view_pos(self, x, y, w, h):
         index = self.check_screen_id(x)
-
+        self.create_screens()
         sx, sy, sw, sh, sc = self.available_screens[index]
 
         if x <= sx + 1:
