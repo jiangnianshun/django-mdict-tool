@@ -1215,9 +1215,9 @@ class BrowserWindow(QMainWindow):
         if y <= sy + 1:
             y = 5
         if x + w >= sx + sw:
-            x = sx + sw - w
+            x = sx + sw - w*sc
         if y + h >= sy + sh:
-            y = sy + sh - h
+            y = sy + sh - h*sc
 
         return x, y
 
@@ -1241,9 +1241,9 @@ class BrowserWindow(QMainWindow):
         if y <= sy + 1:
             y = 5
         if x + w >= sx + sw:
-            x = sx + sw - w
+            x = sx + sw - w*sc
         if y + h >= sy + sh:
-            y = sy + sh - h
+            y = sy + sh - h*sc
 
         return QRect(x, y, w, h)
 
