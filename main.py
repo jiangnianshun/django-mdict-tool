@@ -23,6 +23,8 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv + ['--webEngineArgs', '--remote-debugging-port=19000'])  # 启用网页调试
     # app = QApplication(sys.argv)
+    app.setQuitOnLastWindowClosed(False)
+    # 打开的最后一个窗口关闭时会关闭整个应用，不包括托盘，导致截屏后应用直接退出。
     app.setWindowIcon(QIcon("data/imgs/shortcut.png"))
     QLoggingCategory.setFilterRules("qt.webenginecontext.debug=true")
 
