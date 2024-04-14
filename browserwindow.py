@@ -1048,31 +1048,33 @@ class BrowserWindow(QMainWindow):
             return user32.CallNextHookEx(self.keyboard_hook, nCode, wParam, lParam)
         else:
             if self.search_mode == 0:
-                # 键盘触发
-                if wParam == win32con.WM_KEYDOWN:
-                    if lParam.contents.value in [win32con.VK_RCONTROL, win32con.VK_LCONTROL, win32con.VK_RMENU,
-                                                 win32con.VK_LMENU, 67]:
-                        if lParam.contents.value == win32con.VK_RCONTROL or lParam.contents.value == win32con.VK_LCONTROL:
+                # 键盘触发，单独按alt键触发WM_SYSKEYDOWN
+                if wParam == win32con.WM_KEYDOWN or wParam == win32con.WM_SYSKEYDOWN:
+                    if lParam.contents.value in [win32con.VK_RCONTROL, win32con.VK_LCONTROL, win32con.VK_CONTROL,
+                                                 win32con.VK_RMENU, win32con.VK_LMENU, win32con.VK_MENU, 67]:
+                        if (lParam.contents.value == win32con.VK_RCONTROL or lParam.contents.value == win32con.VK_LCONTROL
+                                or lParam.contents.value == win32con.VK_CONTROL):
                             self.timer = time.perf_counter()
                             self.key_ctrl_pressed = True
                             self.key_ctrl_c_pressed = False
                             self.key_ctrl_alt_c_pressed = False
-                        elif lParam.contents.value == win32con.VK_LMENU or lParam.contents.value == win32con.VK_RMENU:
+                        elif (lParam.contents.value == win32con.VK_LMENU or lParam.contents.value == win32con.VK_RMENU
+                              or lParam.contents.value == win32con.VK_MENU):
                             self.timer = time.perf_counter()
                             self.key_ctrl_c_pressed = False
                             self.key_alt_pressed = True
                             self.key_ctrl_alt_c_pressed = False
-                        elif self.key_ctrl_pressed and not self.key_alt_pressed and lParam.contents.value == 67:
-                            if self.timer is not None and time.perf_counter() - self.timer < 0.5:
-                                self.key_ctrl_c_pressed = True
-                                self.key_ctrl_alt_c_pressed = False
-                                self.timer = None
-                            else:
-                                self.timer = None
                         elif self.key_ctrl_pressed and self.key_alt_pressed and lParam.contents.value == 67:
                             if self.timer is not None and time.perf_counter() - self.timer < 0.5:
                                 self.key_ctrl_c_pressed = False
                                 self.key_ctrl_alt_c_pressed = True
+                                self.timer = None
+                            else:
+                                self.timer = None
+                        elif self.key_ctrl_pressed and not self.key_alt_pressed and lParam.contents.value == 67:
+                            if self.timer is not None and time.perf_counter() - self.timer < 0.5:
+                                self.key_ctrl_c_pressed = True
+                                self.key_ctrl_alt_c_pressed = False
                                 self.timer = None
                             else:
                                 self.timer = None
