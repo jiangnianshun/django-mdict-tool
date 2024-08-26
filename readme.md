@@ -33,3 +33,8 @@ A tool to search words on Win10 by invoking django-mdict.
 [https://github.com/google/material-design-icons](https://github.com/google/material-design-icons)
 
 
+### Troubleshooting
+
+* importerror: dll load failed while importing fugashi: the specified module could not be found
+
+copy libmecab.dll from C:/Users/YourUserName/AppData/Roaming/Python/lib/site-packages/fugashi to C:/Users/YourUserName/AppData/Roaming/Python/Python310/site-packages/fugashi
